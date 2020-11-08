@@ -36,17 +36,17 @@ const exerciseSchema = new Schema(
         },
         sets: {
           type: Number,
-        },
-      },
-    ],
+        }
+      }
+    ]
   },
-//   {
-//     toJSON: {
-//       virtuals: true,
-//     },
-//   }
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
 
-const Exercise = mongoose.model('Exercise', exerciseSchema);
+const Exercise = mongoose.model('Exercises', exerciseSchema);
 
 module.exports = Exercise;
