@@ -16,9 +16,56 @@
 * Git
 * express
 * mongoose
-*
 
 ## Description
+
+The purpose of this project was to create a fitness tracker that uses mongoDB and mongoose to store data. A schema was created using mongoose to create a template for our data. The required information needed inside of the database was day, type of exercise, name, and duration. Other keys were added to the schema so data will be stored depending on if the user chose cardio or resistance. 
+
+```
+const exerciseSchema = new Schema(
+  {
+    day: {
+      type: Date,
+      default: Date.now(),
+    },
+
+    ...
+
+```
+
+HTML Routes were added to connect the url to the proper HTML files using express. 
+
+```
+  router.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  });
+```
+API routes were also addded to ensure data was being stored properly. This files uses the CRUD (create read update delete) model to create, manipulate, or view data from the database. Mongoose was used to handle these tasks.
+
+```
+router.post('/api/workouts', ({ body }, res) => {
+  Exercise.create(body)
+    .then((dbExercise) => {
+      res.json(dbExercise);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+```
+Mongoose was used to connect to the URI. MongoDB Atlas was created and connected to Heroku durring deployment to allow users to see data from any device and not relying on the local host as its server. 
+
+```
+mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://localhost/dbExercise',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    }
+  );
+```
 
 
 ## License

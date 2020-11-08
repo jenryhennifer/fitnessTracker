@@ -46,6 +46,7 @@ const exerciseSchema = new Schema(
     },
   }
 );
+//adds all the exercise times together to create total duration
 exerciseSchema.virtual('totalDuration').get(function(){
     return this.exercises.reduce((tot, ex) =>{
         return tot + ex.duration;
