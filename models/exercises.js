@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+//template for DB data
 const exerciseSchema = new Schema(
   {
+    //stores what day it is using current times
     day: {
       type: Date,
       default: Date.now(),
     },
+    //array of exercise information
     exercises: [
       {
         type: {
@@ -36,9 +39,9 @@ const exerciseSchema = new Schema(
         },
         sets: {
           type: Number,
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   {
     toJSON: {
@@ -46,12 +49,16 @@ const exerciseSchema = new Schema(
     },
   }
 );
+
 //adds all the exercise times together to create total duration
-exerciseSchema.virtual('totalDuration').get(function(){
-    return this.exercises.reduce((tot, ex) =>{
-        return tot + ex.duration;
-    }, 0)
+exerciseSchema.virtual('totalDuration').get(function () {
+  return this.exercises.reduce((tot, ex) => {
+    return tot + ex.duration;
+  }, 0);
 });
+
+//creates the model to be used inside the API routes
 const Exercise = mongoose.model('dbExercises', exerciseSchema);
 
+//exported to API routes
 module.exports = Exercise;
