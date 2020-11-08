@@ -51,6 +51,6 @@ exerciseSchema.virtual('totalDuration').get(function(){
         return tot + ex.duration;
     }, 0)
 });
-const Exercise = mongoose.model('Exercises', exerciseSchema);
+const Exercise = mongoose.model('dbExercises', exerciseSchema);
 
 module.exports = Exercise;
